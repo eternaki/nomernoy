@@ -32,15 +32,27 @@ Deno.serve(handler(async ({ user: caller, body }) => {
   const tg = body.tg;
   if (!tg?.id || !tg?.hash || !(await validTelegram(tg, botToken))) return json({ error: 'Telegram не подтвердил вход' }, 401);
 
-  const email = `tg-${tg.id}@telegram.example.com`;
-  const { data: created, error } = await admin.auth.admin.createUser({
-    email, email_confirm: true,
-    user_metadata: { provider: 'telegram', tg_id: tg.id, name: [tg.first_name, tg.last_name].filter(Boolean).join(' '), username: tg.username },
-  });
-  const isNew = !error;
-  if (error && !/already|registered|exists/i.test(error.message)) return json({ error: error.message }, 400);
-
-  if (isNew) {
+  // Аккаунт ищем только по таблице tg_accounts, которую пишет сервер, — не по почте.
+  // Почта со случайной частью: её нельзя заранее зарегистрировать, чтобы перехватить чужой вход.
+  let email;
+  const { data: known } = await admin.from('tg_accounts').select('user_id').eq('tg_id', tg.id).maybeSingle();
+  if (known) {
+    const { data, error } = await admin.auth.admin.getUserById(known.user_id);
+    if (error || !data?.user?.email) return json({ error: 'Аккаунт не найден' }, 400);
+    email = data.user.email;
+  } else {
+    email = `tg-${tg.id}-${crypto.randomUUID().slice(0, 12)}@telegram.example.com`;
+    const { data: created, error } = await admin.auth.admin.createUser({
+      email, email_confirm: true,
+      app_metadata: { tg_id: tg.id },
+      user_metadata: { name: [tg.first_name, tg.last_name].filter(Boolean).join(' '), username: tg.username },
+    });
+    if (error) return json({ error: error.message }, 400);
+    const { error: mapErr } = await admin.from('tg_accounts').insert({ tg_id: tg.id, user_id: created.user.id });
+    if (mapErr) { // параллельный вход уже создал аккаунт
+      await admin.auth.admin.deleteUser(created.user.id);
+      return json({ error: 'Попробуй войти ещё раз' }, 409);
+    }
     if (caller?.is_anonymous) {
       const { error: mergeErr } = await admin.rpc('merge_guest', { p_old: caller.id, p_new: created.user.id });
       if (!mergeErr) await admin.auth.admin.deleteUser(caller.id);

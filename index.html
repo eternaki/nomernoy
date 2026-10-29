@@ -1125,7 +1125,7 @@ async function boot() {
   const u = session.user;
   S.uid = u.id;
   S.member = !u.is_anonymous;
-  S.provider = (u.app_metadata?.providers || []).includes('google') ? 'Google' : u.user_metadata?.provider === 'telegram' ? 'Telegram' : '';
+  S.provider = (u.app_metadata?.providers || []).includes('google') ? 'Google' : u.app_metadata?.tg_id ? 'Telegram' : '';
   fetch(`${SUPABASE_URL}/auth/v1/settings`, { headers: { apikey: SUPABASE_KEY } })
     .then(r => r.json()).then(s => { S.google = !!s.external?.google; }).catch(() => {});
   callFn('tg-auth', { config: true }).then(r => { S.tgBot = r.bot; }).catch(() => {});

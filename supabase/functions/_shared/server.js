@@ -44,7 +44,7 @@ export async function issuePlate(c, tierId, commit) {
     const value = valueFor(c, tier);
     const { data, error } = await commit(text, tier.id, value);
     if (!error) return { data, text, tier: tier.id, value };
-    if (error.code !== '23505') throw new Error(error.message);
+    if (error.code !== '23505') throw Object.assign(new Error(error.message), { code: error.code });
   }
   throw new Error('Не удалось подобрать свободный номер, попробуй ещё раз');
 }
