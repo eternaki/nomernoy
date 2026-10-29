@@ -210,16 +210,130 @@
   .item .btn { padding: 8px 14px; font-size: 13px; }
   .empty { color: var(--muted); text-align: center; padding: 60px 20px; border: 1px dashed var(--line); border-radius: 14px; grid-column: 1 / -1; }
 
+  .item.sel { outline: 3px solid var(--accent); outline-offset: -1px; }
+  .item.dim { opacity: .35; }
+  .item.pick { cursor: pointer; }
+  .item .listed { color: var(--accent); font-size: 12px; font-weight: 700; }
+  .item .seller { color: var(--muted); font-size: 12px; }
+  .item .seller button { background: none; color: var(--text); font-weight: 700; padding: 0; text-decoration: underline; text-decoration-color: #4a515c; }
+  .item form { display: flex; gap: 6px; }
+  .item input { width: 100%; min-width: 0; }
+
+  input.field {
+    background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; font: inherit; font-variant-numeric: tabular-nums;
+  }
+  input.field:focus { outline: none; border-color: var(--accent); }
+
   .hidden { display: none !important; }
+
+  /* ---------- бонусы ---------- */
+  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+  .perk {
+    display: flex; align-items: center; gap: 12px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px 14px;
+  }
+  .perk .ico { width: 34px; height: 34px; border-radius: 9px; flex: none; display: grid; place-items: center; font-weight: 800; color: #111; }
+  .perk .txt { flex: 1; min-width: 0; }
+  .perk b { display: block; font-size: 14px; }
+  .perk small { color: var(--muted); font-size: 12px; }
+  .perk .btn { padding: 9px 14px; font-size: 13px; flex: none; }
+
+  /* ---------- шапка: аккаунт ---------- */
+  .acc {
+    display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line);
+    padding: 8px 12px; border-radius: 10px; color: var(--text); font-weight: 700; max-width: 180px;
+  }
+  .acc span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .acc i { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+  .acc.member i { background: #3ccf7a; }
+  .badge { background: #ff3d3d; color: #fff; border-radius: 9px; font-size: 11px; padding: 1px 6px; margin-left: 4px; font-weight: 800; }
+
+  /* ---------- модалка и уведомления ---------- */
+  .modal { position: fixed; inset: 0; z-index: 30; background: rgba(5,6,8,.7); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 20px; }
+  .sheet {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: min(760px, 100%);
+    max-height: calc(100vh - 40px); overflow: auto; padding: 22px; position: relative;
+  }
+  .sheet h3 { margin: 0 0 6px; font-family: Oswald; font-weight: 600; font-size: 24px; }
+  .sheet p { color: var(--muted); margin: 0 0 16px; font-size: 14px; line-height: 1.5; }
+  .sheet .x { position: absolute; top: 12px; right: 12px; background: var(--panel-2); color: var(--text); width: 34px; height: 34px; border-radius: 9px; font-size: 18px; }
+  .sheet .row2 { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .sheet .row2 .field { flex: 1; min-width: 160px; }
+  .login { display: grid; gap: 10px; margin-top: 8px; }
+  .login .btn { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .login .note { color: var(--muted); font-size: 12px; text-align: center; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cols h4 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .mini { display: grid; gap: 8px; max-height: 320px; overflow: auto; padding-right: 4px; }
+  .mini .m {
+    display: flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--line);
+    border-left: 3px solid var(--c); border-radius: 9px; padding: 8px 10px; cursor: pointer; text-align: left; color: var(--text);
+  }
+  .mini .m.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--panel-2)); }
+  .mini .m .pv { flex: 0 0 55%; display: flex; }
+  .mini .m small { color: var(--muted); display: block; font-size: 11px; }
+  .toasts { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 40; display: grid; gap: 8px; width: min(420px, calc(100% - 24px)); }
+  .toast { background: #252a32; border: 1px solid var(--line); border-left: 4px solid var(--c, var(--accent)); border-radius: 10px; padding: 12px 14px; font-size: 14px; animation: rise .3s; }
+
+  /* ---------- игроки и обмены ---------- */
+  .board { display: grid; gap: 6px; }
+  .board button {
+    display: grid; grid-template-columns: 36px 1fr auto auto; gap: 12px; align-items: center; text-align: left;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; color: var(--text);
+  }
+  .board button.me { border-color: var(--accent); }
+  .board .rank { color: var(--muted); font-weight: 800; }
+  .board .n { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .board small { color: var(--muted); }
+  .board .w { font-weight: 800; font-variant-numeric: tabular-nums; }
+  .offer { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 10px; }
+  .offer .who { font-size: 14px; }
+  .offer .who b { color: var(--accent); }
+  .offer .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .offer .oside h5 { margin: 0 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .offer .oside .pv { margin-bottom: 6px; display: flex; }
+  .offer .money { font-weight: 800; }
+  .offer .gone { color: #ff6b6b; font-size: 12px; }
+  .offers { display: grid; gap: 10px; }
+
+  /* ---------- коллекции ---------- */
+  .colls { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin-top: 24px; }
+  .coll { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; }
+  .coll.done { border-color: color-mix(in srgb, #3ccf7a 60%, var(--line)); }
+  .coll h4 { margin: 0; font-size: 17px; }
+  .coll p { margin: 0; color: var(--muted); font-size: 13px; }
+  .bar { height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+  .coll .foot { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+  .coll .foot b { font-variant-numeric: tabular-nums; }
+  .coll .btn { padding: 8px 14px; font-size: 13px; }
+  .coll .got { color: #3ccf7a; font-weight: 800; }
+
+  .contract-bar {
+    position: sticky; top: 72px; z-index: 5; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: #22262d; border: 1px solid var(--accent); border-radius: 12px; padding: 12px 14px; margin-bottom: 14px;
+  }
+  .contract-bar .txt { flex: 1; min-width: 200px; font-size: 14px; }
+  .contract-bar small { color: var(--muted); display: block; }
+
+  /* барабаны в ожидании ответа сервера */
+  .reel .col.loop { animation: loop calc(var(--n) * 45ms) linear infinite; }
+  @keyframes loop { from { transform: translateX(-50%) translateY(0); } to { transform: translateX(-50%) translateY(calc(var(--n) * -1.1em)); } }
+
+  .loading { color: var(--muted); text-align: center; padding: 40px; }
 
   @media (max-width: 640px) {
     .wrap { padding: 0 12px 40px; }
-    header .wrap { gap: 8px; padding-top: 10px; padding-bottom: 10px; }
+    header .wrap { gap: 8px; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
     .logo { display: none; }
-    nav { margin-left: 0; }
-    nav button { padding: 8px 12px; }
-    .balance { font-size: 16px; padding: 7px 10px; }
+    nav { order: 3; width: 100%; margin: 0 -12px; padding: 0 12px; overflow-x: auto; scrollbar-width: none; }
+    nav::-webkit-scrollbar { display: none; }
+    nav button { padding: 8px 12px; white-space: nowrap; }
+    .balance { font-size: 16px; padding: 7px 10px; margin-left: 0; }
     .balance small { display: none; }
+    .acc { margin-left: auto; max-width: 150px; }
+    .perks { grid-template-columns: 1fr; margin-top: 12px; }
     /* страны — горизонтальная лента со свайпом */
     .countries {
       display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 8px;
@@ -237,10 +351,15 @@
     .actions .btn { width: 100%; }
     .legend { grid-template-columns: 1fr; }
     .inv-bar .total { width: 100%; }
-    .inv-bar .btn { width: 100%; }
-    .inv-bar select { flex: 1; min-width: 0; }
+    .inv-bar .btn, .inv-bar select { flex: 1 1 40%; min-width: 0; }
     .inv-bar select:first-of-type { margin-left: 0; }
     .grid { grid-template-columns: 1fr; }
+    .modal { padding: 0; align-items: end; }
+    .sheet { border-radius: 16px 16px 0 0; max-height: 92vh; padding: 18px 14px; }
+    .cols, .offer .sides { grid-template-columns: 1fr; }
+    .contract-bar { top: 104px; }
+    .board button { grid-template-columns: 28px 1fr auto; }
+    .board button small { display: none; }
   }
 </style>
 </head>
@@ -248,16 +367,25 @@
 <header>
   <div class="wrap">
     <div class="logo" id="logo"></div>
-    <nav>
+    <nav id="nav">
       <button data-tab="spin" class="on">Крутить</button>
       <button data-tab="inv">Гараж<span class="count" id="invCount"></span></button>
+      <button data-tab="market">Рынок</button>
+      <button data-tab="players">Игроки<span id="offerBadge"></span></button>
+      <button data-tab="colls">Коллекции<span id="collBadge"></span></button>
     </nav>
-    <div class="balance" id="balance"><small>Баланс</small><span id="balanceVal"></span></div>
+    <div class="balance" id="balance"><small>Баланс</small><span id="balanceVal">…</span></div>
+    <button class="acc" id="accBtn"><i></i><span id="accNick">…</span></button>
   </div>
 </header>
 
 <main class="wrap">
   <section id="tab-spin">
+    <div class="perks">
+      <div class="perk"><span class="ico" style="background:#ffd500">₴</span><div class="txt"><b id="dailyTitle"></b><small id="dailyText"></small></div><button class="btn primary" id="dailyBtn">Забрать</button></div>
+      <div class="perk"><span class="ico" style="background:#3ccf7a">⌂</span><div class="txt"><b id="rentTitle"></b><small id="rentText"></small></div><button class="btn primary" id="rentBtn">Забрать</button></div>
+    </div>
+
     <div class="countries" id="countries"></div>
 
     <div class="stage" id="stage">
@@ -278,6 +406,7 @@
   <section id="tab-inv" class="hidden">
     <div class="inv-bar">
       <div class="total" id="invTotal"></div>
+      <button class="btn" id="contractBtn">Контракт</button>
       <button class="btn" id="sellCommon">Продать все обычные</button>
       <select id="filter"></select>
       <select id="sort">
@@ -286,231 +415,106 @@
         <option value="cheap">Сначала дешёвые</option>
       </select>
     </div>
+    <div class="contract-bar hidden" id="contractBar">
+      <div class="txt"><b id="contractText"></b><small>10 номеров одной редкости → 1 номер следующей редкости. Страна — одна из отданных.</small></div>
+      <button class="btn primary" id="contractGo">Подписать</button>
+      <button class="btn" id="contractCancel">Отмена</button>
+    </div>
     <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="tab-market" class="hidden">
+    <div class="inv-bar">
+      <div class="total" id="marketTotal"></div>
+      <select id="mFilter"></select>
+      <select id="mSort">
+        <option value="new">Сначала новые</option>
+        <option value="cheap">Сначала дешёвые</option>
+        <option value="value">Самые редкие</option>
+      </select>
+    </div>
+    <div class="grid" id="mGrid"></div>
+  </section>
+
+  <section id="tab-players" class="hidden">
+    <h2>Обмены</h2>
+    <div class="offers" id="offers"></div>
+    <h2>Рейтинг гаражей</h2>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section id="tab-colls" class="hidden">
+    <div class="colls" id="colls"></div>
   </section>
 </main>
 
-<script>
-// ---------- утилиты ----------
-const ri = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
-const pick = a => a[Math.floor(Math.random() * a.length)];
-const fmt = n => n.toLocaleString('ru-RU') + ' ₴';
-const twoSig = n => { const p = 10 ** Math.max(0, Math.floor(Math.log10(n)) - 1); return Math.round(n / p) * p; };
-const hash = s => [...s].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
-const AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const KANA = 'さすせそたちつてとなにぬねのはひふほまみむめもやゆよらりるろれわ';
+<div class="modal hidden" id="modal"><div class="sheet"><button class="x" id="modalX">×</button><div id="modalBody"></div></div></div>
+<div class="toasts" id="toasts"></div>
 
-// ---------- рамки ----------
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import {
+  COUNTRIES, TIERS, COLLECTIONS, AZ, KANA, DIGITS, PITY, RENT_RATE, RENT_CAP_H, MARKET_FEE, RARE_IDX,
+  countryOf, tierOf, tierIdx, tierChance, spinPrice, makePlate, regionName, collectionProgress, pick,
+} from './supabase/functions/_shared/plates.js';
+
+const SUPABASE_URL = 'https://ijacsixgtvhhivpxnmzg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ezkhmcasU6NAdMwImnmUdg_hji3h9cZ'; // публичный ключ, его можно светить
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ---------- утилиты ----------
+const $ = s => document.querySelector(s);
+const fmt = n => Number(n).toLocaleString('ru-RU') + ' ₴';
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+const hash = s => [...s].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
+const plural = (n, one, few, many) => { const m10 = n % 10, m100 = n % 100; return m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many; };
+const kyivDate = d => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Kyiv' }).format(d);
+
+function toast(msg, color) {
+  const el = document.createElement('div');
+  el.className = 'toast'; el.textContent = msg;
+  if (color) el.style.setProperty('--c', color);
+  $('#toasts').append(el);
+  setTimeout(() => el.remove(), 4200);
+}
+async function rpc(name, args = {}) {
+  const { data, error } = await sb.rpc(name, args);
+  if (error) throw new Error(error.message);
+  return data;
+}
+async function callFn(name, body) {
+  const { data, error } = await sb.functions.invoke(name, { body });
+  if (error) {
+    const msg = await error.context?.json?.().then(j => j.error).catch(() => null);
+    throw new Error(msg || 'Сервер не ответил, попробуй ещё раз');
+  }
+  return data;
+}
+// Обёртка для кнопок: ошибки показываем уведомлением
+const act = fn => async (...a) => { try { await fn(...a); } catch (e) { toast(e.message, '#ff3d3d'); } };
+
+// ---------- рамки номеров ----------
 const STARS = `<svg class="stars" viewBox="0 0 20 20">${Array.from({ length: 12 }, (_, i) => {
   const a = i * Math.PI / 6;
   return `<circle cx="${(10 + 7.2 * Math.sin(a)).toFixed(2)}" cy="${(10 - 7.2 * Math.cos(a)).toFixed(2)}" r="1.25" fill="#ffd500"/>`;
 }).join('')}</svg>`;
 const euStrip = code => `<span class="strip">${STARS}<b>${code}</b></span>`;
-
 const FR_DEPTS = ['75', '13', '69', '06', '33', '59', '31', '67', '44', '92', '974', '2A'];
 const IT_PROV = ['RM', 'MI', 'NA', 'TO', 'FI', 'VE', 'BO', 'PA', 'GE', 'BA'];
+const FRAMES = {
+  ua: inner => `<span class="plate"><span class="strip"><span class="uaflag"></span><b>UA</b></span><span class="chars">${inner}</span></span>`,
+  pl: inner => `<span class="plate">${euStrip('PL')}<span class="chars">${inner}</span></span>`,
+  pt: (inner, t) => `<span class="plate">${euStrip('P')}<span class="chars">${inner}</span><span class="side pt"><b>${20 + hash(t) % 7}</b><b>${String(1 + hash(t) % 12).padStart(2, '0')}</b></span></span>`,
+  nl: inner => `<span class="plate yellow">${euStrip('NL')}<span class="chars">${inner}</span></span>`,
+  it: (inner, t) => `<span class="plate">${euStrip('I')}<span class="chars">${inner}</span><span class="side it"><i></i><b>${IT_PROV[hash(t) % IT_PROV.length]}</b></span></span>`,
+  fr: (inner, t) => `<span class="plate">${euStrip('F')}<span class="chars">${inner}</span><span class="side fr"><i></i><b>${FR_DEPTS[hash(t) % FR_DEPTS.length]}</b></span></span>`,
+  de: inner => `<span class="plate">${euStrip('D')}<span class="chars">${inner}</span></span>`,
+  uk: inner => `<span class="plate yellow uk">${euStrip('UK')}<span class="chars">${inner}</span></span>`,
+  us: inner => `<span class="plate ca"><span class="state">California</span><span class="chars">${inner}</span><span class="dmv">dmv.ca.gov</span></span>`,
+  jp: inner => `<span class="plate jp"><span class="chars">${inner}</span></span>`,
+  ae: inner => `<span class="plate ae"><span class="emirate"><b>دبي</b><small>DUBAI</small></span><span class="chars">${inner}</span></span>`,
+};
 
-// ---------- страны ----------
-// tpl: R — код региона, D — «главные» цифры (по ним считается редкость), L — буквы серии,
-// d — случайная цифра, K — хирагана, | — перенос строки, • — наклейки (Германия), остальное как есть.
-const COUNTRIES = [
-  {
-    id: 'ua', name: 'Украина', mult: 1, tpl: 'R DDDD LL', letters: 'ABCEHIKMOPTX', matchRegion: true,
-    regions: {
-      AA: 'Киев', KA: 'Киев', AI: 'Киевская обл.', AB: 'Винницкая обл.', AC: 'Волынская обл.',
-      AE: 'Днепропетровская обл.', AH: 'Донецкая обл.', AM: 'Житомирская обл.', AO: 'Закарпатская обл.',
-      AP: 'Запорожская обл.', AT: 'Ивано-Франковская обл.', AX: 'Харьковская обл.', BA: 'Кировоградская обл.',
-      BB: 'Луганская обл.', BC: 'Львовская обл.', BE: 'Николаевская обл.', BH: 'Одесская обл.',
-      BI: 'Полтавская обл.', BK: 'Ровенская обл.', BM: 'Сумская обл.', BO: 'Тернопольская обл.',
-      BT: 'Херсонская обл.', BX: 'Хмельницкая обл.', CA: 'Черкасская обл.', CB: 'Черниговская обл.',
-      CE: 'Черновицкая обл.', AK: 'Крым',
-    },
-    mythic: ['KOZAK', 'MRIYA', 'PATRON', 'SLAVA', 'BORSCH', 'HETMAN', 'ZSU', 'XAPKIB'],
-    frame: inner => `<span class="plate"><span class="strip"><span class="uaflag"></span><b>UA</b></span><span class="chars">${inner}</span></span>`,
-  },
-  {
-    id: 'pl', name: 'Польша', mult: 1.1, tpl: 'R DDDLL',
-    regions: { WA: 'Варшава', WE: 'Варшава', KR: 'Краков', GD: 'Гданьск', GA: 'Гдыня', PO: 'Познань', DW: 'Вроцлав', LU: 'Люблин', EL: 'Лодзь', ZS: 'Щецин', SK: 'Катовице' },
-    mythic: ['W0 SZEF', 'K0 SMOK', 'G1 MORZE', 'W1 BOSS', 'P0 PIWO'],
-    frame: inner => `<span class="plate">${euStrip('PL')}<span class="chars">${inner}</span></span>`,
-  },
-  {
-    id: 'pt', name: 'Португалия', mult: 1.2, tpl: 'LL-DD-LL',
-    mythic: ['AA-00-AA', 'PT-00-01', 'ZZ-99-ZZ'],
-    frame: (inner, t) => `<span class="plate">${euStrip('P')}<span class="chars">${inner}</span><span class="side pt"><b>${20 + hash(t) % 7}</b><b>${String(1 + hash(t) % 12).padStart(2, '0')}</b></span></span>`,
-  },
-  {
-    id: 'nl', name: 'Нидерланды', mult: 1.2, tpl: 'LL-DDD-L',
-    mythic: ['AA-1', 'AA-7', 'AA-12'], // AA — номера королевской семьи
-    frame: inner => `<span class="plate yellow">${euStrip('NL')}<span class="chars">${inner}</span></span>`,
-  },
-  {
-    id: 'it', name: 'Италия', mult: 1.3, tpl: 'LL DDDLL',
-    mythic: ['AA 000 AA', 'RM 001 MA', 'ZZ 999 ZZ'],
-    frame: (inner, t) => `<span class="plate">${euStrip('I')}<span class="chars">${inner}</span><span class="side it"><i></i><b>${IT_PROV[hash(t) % IT_PROV.length]}</b></span></span>`,
-  },
-  {
-    id: 'fr', name: 'Франция', mult: 1.3, tpl: 'LL-DDD-LL',
-    mythic: ['AA-001-AA', 'PA-075-RS', 'ZZ-999-ZZ'],
-    frame: (inner, t) => `<span class="plate">${euStrip('F')}<span class="chars">${inner}</span><span class="side fr"><i></i><b>${FR_DEPTS[hash(t) % FR_DEPTS.length]}</b></span></span>`,
-  },
-  {
-    id: 'de', name: 'Германия', mult: 1.5, tpl: 'R•LL DDDD',
-    regions: { B: 'Берлин', M: 'Мюнхен', HH: 'Гамбург', K: 'Кёльн', F: 'Франкфурт', S: 'Штутгарт', D: 'Дюссельдорф', HB: 'Бремен', L: 'Лейпциг', DO: 'Дортмунд' },
-    mythic: ['S•PO 911', 'M•BW 1', 'B•ER 1', 'IN•AU 1', 'HH•SV 1'],
-    frame: inner => `<span class="plate">${euStrip('D')}<span class="chars">${inner}</span></span>`,
-  },
-  {
-    id: 'uk', name: 'Британия', mult: 1.7, tpl: 'LLDD LLL',
-    mythic: ['F 1', '25 O', 'S 1', 'M 1', '1 D'],
-    frame: inner => `<span class="plate yellow uk">${euStrip('UK')}<span class="chars">${inner}</span></span>`,
-  },
-  {
-    id: 'us', name: 'США · Калифорния', mult: 2, tpl: 'DLLLDDD',
-    mythic: ['BOSS', 'LA LAND', '2FAST4U', 'SURFER', 'HOLYWD'],
-    frame: inner => `<span class="plate ca"><span class="state">California</span><span class="chars">${inner}</span><span class="dmv">dmv.ca.gov</span></span>`,
-  },
-  {
-    id: 'jp', name: 'Япония', mult: 2.2, tpl: 'R 3dd|K DD-DD',
-    regions: { 品川: 'Синагава', 練馬: 'Нэрима', 横浜: 'Иокогама', 大阪: 'Осака', 京都: 'Киото', 札幌: 'Саппоро', 名古屋: 'Нагоя', 神戸: 'Кобе', 福岡: 'Фукуока', 沖縄: 'Окинава' },
-    mythic: ['品川 300|さ ・・・1', '横浜 300|す ・・・7', '京都 300|な ・・88', '大阪 330|わ ・・・8'],
-    frame: inner => `<span class="plate jp"><span class="chars">${inner}</span></span>`,
-  },
-  {
-    id: 'ae', name: 'ОАЭ · Дубай', mult: 3, tpl: 'L DDDDD',
-    mythic: ['P 7', 'A 1', 'B 1', 'AA 9', 'D 5'],
-    frame: inner => `<span class="plate ae"><span class="emirate"><b>دبي</b><small>DUBAI</small></span><span class="chars">${inner}</span></span>`,
-  },
-];
-COUNTRIES.forEach(c => {
-  c.letters ||= AZ;
-  c.regionCodes = c.regions ? Object.keys(c.regions) : null;
-});
-const countryOf = id => COUNTRIES.find(c => c.id === id);
-
-const TIERS = [
-  { id: 'common',    name: 'Обычный',     color: '#9aa4b1', min: 8,     max: 22,    weight: 55,   rule: 'Случайные символы' },
-  { id: 'uncommon',  name: 'Необычный',   color: '#4b8bff', min: 30,    max: 70,    weight: 27,   rule: 'Зеркало 1221, пары 1122, круглые 4500' },
-  { id: 'rare',      name: 'Редкий',      color: '#9b5cff', min: 90,    max: 210,   weight: 12,   rule: 'Три одинаковые 7771, тысячи 3000 или одинаковые буквы' },
-  { id: 'epic',      name: 'Эпический',   color: '#ec4ccf', min: 300,   max: 600,   weight: 4.3,  rule: 'Все цифры одинаковые, лесенка 1234, 0007' },
-  { id: 'legendary', name: 'Легендарный', color: '#ffb020', min: 1200,  max: 2400,  weight: 1.3,  rule: 'Одинаковые цифры + одинаковые буквы' },
-  { id: 'mythic',    name: 'Мифический',  color: '#ff3d3d', min: 6000,  max: 12000, weight: 0.4,  rule: 'Именной или исторический номер' },
-];
-const tierOf = id => TIERS.find(t => t.id === id);
-const TOTAL_W = TIERS.reduce((s, t) => s + t.weight, 0);
-
-const RTP = 0.95; // в среднем прокрутка возвращает 95% своей цены (без учёта гаранта)
-const PITY = 10; // если 9 прокруток подряд без редкого — десятая минимум редкая
-const START_BALANCE = 5000;
-const HELP_AMOUNT = 1000;
-const spinPrice = c => twoSig(TIERS.reduce((s, t) => s + t.weight / TOTAL_W * (t.min + t.max) / 2, 0) * c.mult / RTP);
-
-// ---------- генерация ----------
-const SEQ_UP = '0123456789', SEQ_DOWN = '9876543210';
-function twoDistinct() { const a = ri(0, 9); let b; do b = ri(0, 9); while (b === a); return [a, b]; }
-function isPatterned(d) {
-  const n = d.length;
-  if (n < 2) return false;
-  if (new Set(d).size === 1) return true;
-  if (d.startsWith('00')) return true;
-  if (n === 2) return d[1] === '0';
-  return /(\d)\1\1/.test(d)
-    || d === [...d].reverse().join('')
-    || d.endsWith('00')
-    || SEQ_UP.includes(d) || SEQ_DOWN.includes(d)
-    || (n === 4 && ((d[0] === d[1] && d[2] === d[3]) || (d[0] === d[2] && d[1] === d[3])));
-}
-function plainDigits(n) {
-  let d;
-  do d = Array.from({ length: n }, () => ri(0, 9)).join(''); while (isPatterned(d));
-  return d;
-}
-function mirror(n) {
-  let d;
-  do {
-    const half = Array.from({ length: Math.ceil(n / 2) }, () => ri(0, 9));
-    d = [...half, ...half.slice(0, Math.floor(n / 2)).reverse()].join('');
-  } while (new Set(d).size === 1);
-  return d;
-}
-const same = n => String(ri(0, 9)).repeat(n);
-const zerosThen = n => '0'.repeat(n - 1) + ri(1, 9);
-function seq(n) {
-  const src = pick([SEQ_UP, SEQ_DOWN]);
-  const s = ri(0, 10 - n);
-  return src.slice(s, s + n);
-}
-function digitsFor(tier, n) {
-  if (n === 0) return '';
-  if (n === 1) return String(ri(0, 9));
-  const [a, b] = twoDistinct();
-  switch (tier) {
-    case 'common': return plainDigits(n);
-    case 'uncommon':
-      if (n === 2) return `${ri(1, 9)}0`;
-      return pick([
-        () => mirror(n),
-        () => `${ri(1, 9)}${n > 3 ? ri(1, 9) : ''}`.padEnd(n, '0'),
-        ...(n === 4 ? [() => `${a}${a}${b}${b}`, () => `${a}${b}${a}${b}`] : []),
-      ])();
-    case 'rare':
-      if (n === 2) return String(ri(1, 9)).repeat(2);
-      return pick([() => String(a).repeat(n - 1) + b, () => b + String(a).repeat(n - 1), () => String(ri(1, 9)).padEnd(n, '0')])();
-    case 'epic':
-      if (n === 2) return zerosThen(2);
-      return pick([() => same(n), () => seq(n), () => zerosThen(n)])();
-    case 'legendary':
-      return pick([() => same(n), () => zerosThen(n)])();
-  }
-}
-function lettersFor(c, m, region, sameLetters) {
-  if (m === 0) return '';
-  if (sameLetters) return c.matchRegion && region?.length === m ? region : pick(c.letters).repeat(m);
-  let s;
-  do s = Array.from({ length: m }, () => pick(c.letters)).join('');
-  while (m > 1 && (new Set(s).size === 1 || (c.matchRegion && s === region)));
-  return s;
-}
-
-function makePlate(c, tier) {
-  if (tier === 'mythic') return pick(c.mythic);
-  const n = [...c.tpl].filter(x => x === 'D').length;
-  const m = [...c.tpl].filter(x => x === 'L').length;
-  const region = c.regionCodes ? pick(c.regionCodes) : null;
-  let digits, letters;
-  if (tier === 'rare' && Math.random() < 0.3) {
-    digits = plainDigits(n); letters = lettersFor(c, m, region, true);
-  } else {
-    digits = digitsFor(tier, n); letters = lettersFor(c, m, region, tier === 'legendary');
-  }
-  let di = 0, li = 0;
-  return [...c.tpl].map(x =>
-    x === 'R' ? region : x === 'D' ? digits[di++] : x === 'L' ? letters[li++] :
-    x === 'd' ? ri(0, 9) : x === 'K' ? pick(KANA) : x).join('');
-}
-
-function rollTier(minIdx = 0) {
-  const pool = TIERS.slice(minIdx);
-  let r = Math.random() * pool.reduce((s, t) => s + t.weight, 0);
-  for (const t of pool) { r -= t.weight; if (r < 0) return t; }
-  return pool[0];
-}
-const RARE_IDX = TIERS.findIndex(t => t.id === 'rare');
-function makeItem(c, tier = rollTier()) {
-  return {
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
-    c: c.id, text: makePlate(c, tier.id), tier: tier.id,
-    value: Math.round(ri(tier.min, tier.max) * c.mult),
-    ts: Date.now(),
-  };
-}
-function regionName(c, text) {
-  if (!c.regions) return '';
-  const code = text.split(/[ •]/)[0];
-  return c.regions[code] || '';
-}
-
-// ---------- рендер номера ----------
 // Разбиваем текст на ячейки: цифры, буквы, кана и блоки кандзи крутятся, остальное статично.
 function cells(c, text) {
   const out = [];
@@ -519,90 +523,138 @@ function cells(c, text) {
     if (/[一-鿿]/.test(ch)) {
       let j = i; while (j < text.length && /[一-鿿]/.test(text[j])) j++;
       out.push({ v: text.slice(i, j), pool: c.regionCodes }); i = j - 1;
-    } else if (/\d/.test(ch)) out.push({ v: ch, pool: SEQ_UP });
+    } else if (/\d/.test(ch)) out.push({ v: ch, pool: DIGITS });
     else if (/[A-Z]/.test(ch)) out.push({ v: ch, pool: c.letters });
     else if (/[぀-ゟ]/.test(ch)) out.push({ v: ch, pool: KANA });
     else out.push({ v: ch });
   }
   return out;
 }
-function cellHTML(cell, spin, idx) {
+// mode: false — статичный номер, 'spin' — барабаны до финального символа, 'loop' — бесконечное вращение
+function cellHTML(cell, mode, idx) {
   if (cell.v === ' ') return '<span class="sp"></span>';
   if (cell.v === '•') return '<span class="stick"><i></i><i></i></span>';
-  if (!spin || !cell.pool) return `<span class="ch">${cell.v}</span>`;
+  if (!mode || !cell.pool) return `<span class="ch">${cell.v}</span>`;
+  const pool = [...cell.pool];
+  if (mode === 'loop') {
+    const items = Array.from({ length: 8 }, () => pick(pool));
+    return `<span class="reel"><span class="fin">${cell.v}</span><span class="col loop" style="--n:${items.length};animation-delay:-${idx * 70}ms">${[...items, ...items].map(x => `<span>${x}</span>`).join('')}</span></span>`;
+  }
   const len = 14 + idx * 3;
-  const items = Array.from({ length: len }, () => pick([...cell.pool]));
-  items.push(cell.v, pick([...cell.pool])); // лишний символ снизу — на случай отскока
+  const items = Array.from({ length: len }, () => pick(pool));
+  items.push(cell.v, pick(pool)); // лишний символ снизу — на случай отскока
   return `<span class="reel"><span class="fin">${cell.v}</span><span class="col" data-len="${len}">${items.map(x => `<span>${x}</span>`).join('')}</span></span>`;
 }
-function plateHTML(cId, text, spin = false) {
+function plateHTML(cId, text, mode = false) {
   const c = countryOf(cId);
   let idx = 0;
   const rows = text.split('|').map(row =>
-    `<span class="row">${cells(c, row).map(cell => cellHTML(cell, spin, cell.pool ? idx++ : idx)).join('')}</span>`);
-  return c.frame(rows.join(''), text);
+    `<span class="row">${cells(c, row).map(cell => cellHTML(cell, mode, cell.pool ? idx++ : idx)).join('')}</span>`);
+  return FRAMES[cId](rows.join(''), text);
 }
-
 // Номер максимально крупный, но не шире своего контейнера
 function fit(root = document) {
   root.querySelectorAll('.fit').forEach(box => {
     const plate = box.querySelector('.plate');
-    if (!plate) return;
+    if (!plate || !box.clientWidth) return;
     const base = +box.dataset.size;
     plate.style.fontSize = base + 'px';
-    // высокие номера (Калифорния, Япония) ограничиваем ещё и по высоте, чтобы не были огромными
+    // высокие номера (Калифорния, Япония) ограничиваем ещё и по высоте
     const k = Math.min(1, (box.clientWidth - 4) / plate.offsetWidth, base * 2.8 / plate.offsetHeight);
     if (k < 1) plate.style.fontSize = Math.floor(base * k) + 'px';
   });
 }
+const plateBox = (p, size) => `<div class="pv fit" data-size="${size}">${plateHTML(p.c, p.text)}</div>`;
 
 // ---------- состояние ----------
-const KEY = 'nomernoy-v3';
-const state = JSON.parse(localStorage.getItem(KEY) || 'null') || { balance: START_BALANCE, inv: [], country: 'ua', pity: 0 };
-const save = () => localStorage.setItem(KEY, JSON.stringify(state));
-const $ = s => document.querySelector(s);
-let spinning = false;
-let lastItem = null;
-const pendingIds = new Set(); // номер уже сохранён, но показываем его после остановки барабанов
-
-// Примеры для витрины: по одному номеру каждой редкости на страну
+const S = {
+  uid: null, member: false, provider: '', profile: null,
+  plates: [], listed: new Map(), claims: new Set(), offers: [],
+  country: localStorage.getItem('nomernoy-country') || 'ua',
+  spinning: false, lastItem: null, contract: null, listing: null,
+  google: false, tgBot: null, market: [], board: [],
+};
+if (!countryOf(S.country)) S.country = 'ua';
 const EXAMPLES = Object.fromEntries(COUNTRIES.map(c => [c.id, TIERS.map(t => makePlate(c, t.id))]));
+const toItem = r => ({ id: r.id, c: r.country, text: r.text, tier: r.tier, value: r.value, ts: Date.parse(r.created_at), owner: r.owner });
+const worth = () => S.plates.reduce((s, p) => s + p.value, 0);
 
-function renderBalance(flash) {
-  const minPrice = Math.min(...COUNTRIES.map(spinPrice));
-  const broke = state.balance < minPrice && state.inv.length === 0;
-  $('#balanceVal').textContent = fmt(state.balance);
-  let help = $('#helpBtn');
-  if (broke && !help) {
-    help = document.createElement('button');
-    help.id = 'helpBtn'; help.className = 'help-btn'; help.textContent = `+${HELP_AMOUNT} ₴`;
-    help.title = 'Деньги закончились — держи на пару прокруток';
-    help.onclick = () => { state.balance += HELP_AMOUNT; save(); renderBalance(true); renderSpinButton(); };
-    $('#balance').append(help);
-  } else if (!broke && help) help.remove();
+async function loadMe() {
+  const [prof, plates, listed, claims, offers] = await Promise.all([
+    sb.from('profiles').select('*').eq('id', S.uid).single(),
+    sb.from('plates').select('*').eq('owner', S.uid),
+    sb.from('listings').select('plate_id, price').eq('seller', S.uid),
+    sb.from('claims').select('collection'),
+    sb.from('offers').select('*').eq('status', 'open').order('created_at', { ascending: false }),
+  ]);
+  if (prof.error) throw new Error(prof.error.message);
+  S.profile = prof.data;
+  S.plates = (plates.data || []).map(toItem);
+  S.listed = new Map((listed.data || []).map(l => [l.plate_id, l.price]));
+  S.claims = new Set((claims.data || []).map(c => c.collection));
+  S.offers = offers.data || [];
+}
+
+// ---------- шапка, бонусы ----------
+function renderHeader(flash) {
+  $('#balanceVal').textContent = S.profile ? fmt(S.profile.balance) : '…';
+  $('#accNick').textContent = S.profile ? S.profile.nick : '…';
+  $('#accBtn').classList.toggle('member', S.member);
+  $('#accBtn').title = S.member ? 'Аккаунт' : 'Гость — войди, чтобы торговать';
+  const incoming = S.offers.filter(o => o.to_id === S.uid).length;
+  $('#offerBadge').innerHTML = incoming ? `<span class="badge">${incoming}</span>` : '';
+  const ready = COLLECTIONS.filter(c => !S.claims.has(c.id) && isComplete(c.id)).length;
+  $('#collBadge').innerHTML = ready ? `<span class="badge">${ready}</span>` : '';
   if (flash) { const b = $('#balance'); b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); }
 }
 
+function dailyState() {
+  const p = S.profile;
+  const today = kyivDate(new Date());
+  const yesterday = kyivDate(new Date(Date.now() - 864e5));
+  const streak = p.daily_last === yesterday ? p.daily_streak + 1 : 1;
+  return { available: p.daily_last !== today, streak, amount: Math.min(500 + (streak - 1) * 250, 2000) };
+}
+function rentNow() {
+  const p = S.profile;
+  const hours = Math.min((Date.now() - Date.parse(p.rent_at)) / 36e5, RENT_CAP_H);
+  return p.rent_pending + Math.floor(worth() * RENT_RATE * Math.max(0, hours));
+}
+function renderPerks() {
+  if (!S.profile) return;
+  const d = dailyState();
+  $('#dailyTitle').textContent = d.available ? `Ежедневный бонус · +${fmt(d.amount)}` : 'Бонус получен';
+  $('#dailyText').textContent = d.available
+    ? `День ${d.streak} подряд. Заходи каждый день — бонус растёт до 2 000 ₴`
+    : `Серия: ${S.profile.daily_streak} дн. Следующий — завтра, +${fmt(Math.min(500 + S.profile.daily_streak * 250, 2000))}`;
+  $('#dailyBtn').classList.toggle('hidden', !d.available);
+  const r = rentNow();
+  const perHour = Math.floor(worth() * RENT_RATE);
+  $('#rentTitle').textContent = `Аренда гаража · +${fmt(r)}`;
+  $('#rentText').textContent = perHour
+    ? `Номера приносят ${fmt(perHour)} в час, копится до ${RENT_CAP_H} ч`
+    : 'Номера в гараже приносят 0,5% своей цены в час';
+  $('#rentBtn').disabled = r < 1;
+}
+
+// ---------- крутилка ----------
 function renderCountries() {
   $('#countries').innerHTML = COUNTRIES.map(c => `
-    <button class="country ${c.id === state.country ? 'on' : ''}" data-country="${c.id}" ${spinning ? 'disabled' : ''}>
+    <button class="country ${c.id === S.country ? 'on' : ''}" data-country="${c.id}" ${S.spinning ? 'disabled' : ''}>
       <span class="pv fit" data-size="15">${plateHTML(c.id, EXAMPLES[c.id][4])}</span>
       <b>${c.name}</b><small>${fmt(spinPrice(c))}</small>
     </button>`).join('');
   fit($('#countries'));
 }
-
 function renderSpinButton() {
-  const c = countryOf(state.country);
-  const price = spinPrice(c);
-  $('#spinBtn').textContent = `Крутить · ${fmt(price)}`;
-  $('#spinBtn').disabled = spinning || state.balance < price;
-  const left = PITY - (state.pity || 0);
+  const price = spinPrice(countryOf(S.country));
+  $('#spinBtn').textContent = S.spinning ? 'Крутится…' : `Крутить · ${fmt(price)}`;
+  $('#spinBtn').disabled = S.spinning || !S.profile || S.profile.balance < price;
+  const left = PITY - (S.profile?.pity || 0);
   $('#pity').innerHTML = left <= 1 ? '<b>Следующая прокрутка — минимум редкий</b>' : `Гарант редкого через ${left}`;
 }
-
 function renderStage() {
-  const c = countryOf(state.country);
+  const c = countryOf(S.country);
   $('#stageTitle').textContent = c.name;
   $('#stage').style.removeProperty('--c');
   $('#big').classList.remove('won');
@@ -612,90 +664,56 @@ function renderStage() {
   renderSpinButton();
   fit($('#stage'));
 }
-
 function renderLegend() {
-  const c = countryOf(state.country);
+  const c = countryOf(S.country);
   $('#legendTitle').textContent = `Шансы · ${c.name}`;
   $('#legend').innerHTML = TIERS.map((t, i) => `
     <div style="--c:${t.color}">
       <span class="pv fit" data-size="17">${plateHTML(c.id, EXAMPLES[c.id][i])}</span>
-      <div><b>${t.name} · ${(t.weight / TOTAL_W * 100).toFixed(t.weight < 1 ? 2 : 1)}%</b>
+      <div><b>${t.name} · ${(tierChance(t) * 100).toFixed(t.weight < 1 ? 2 : 1)}%</b>
       <small>${fmt(Math.round(t.min * c.mult))} – ${fmt(Math.round(t.max * c.mult))}</small>
       <small>${t.rule}</small></div>
     </div>`).join('');
   fit($('#legend'));
 }
 
-function renderInventory() {
-  const visible = state.inv.filter(i => !pendingIds.has(i.id));
-  $('#invCount').textContent = visible.length ? ` ${visible.length}` : '';
-  $('#invTotal').innerHTML = `${visible.length} шт. · <small>стоимость</small> ${fmt(visible.reduce((s, i) => s + i.value, 0))}`;
-  $('#sellCommon').disabled = !visible.some(i => i.tier === 'common');
-
-  const f = $('#filter'), cur = f.value || 'all';
-  const present = COUNTRIES.filter(c => visible.some(i => i.c === c.id));
-  f.innerHTML = `<option value="all">Все страны</option>` + present.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  f.value = present.some(c => c.id === cur) ? cur : 'all';
-
-  const sort = $('#sort').value;
-  const list = visible.filter(i => f.value === 'all' || i.c === f.value).sort((a, b) =>
-    sort === 'new' ? b.ts - a.ts : sort === 'cheap' ? a.value - b.value : b.value - a.value);
-  $('#grid').innerHTML = list.length ? list.map(i => {
-    const t = tierOf(i.tier), c = countryOf(i.c);
-    const reg = regionName(c, i.text);
-    return `<div class="item" style="--c:${t.color}">
-      <div class="pv fit" data-size="24">${plateHTML(i.c, i.text)}</div>
-      <div class="info"><span class="tier">${t.name}</span><span class="region">${c.name}${reg ? ' · ' + reg : ''}</span></div>
-      <div class="foot"><span class="price">${fmt(i.value)}</span><button class="btn" data-sell="${i.id}">Продать</button></div>
-    </div>`;
-  }).join('') : `<div class="empty">Гараж пуст. Покрути номера — они попадут сюда.</div>`;
-  fit($('#grid'));
-}
-
-// ---------- действия ----------
-function sell(id) {
-  const idx = state.inv.findIndex(i => i.id === id);
-  if (idx < 0) return;
-  state.balance += state.inv[idx].value;
-  state.inv.splice(idx, 1);
-  save(); renderBalance(true); renderSpinButton(); renderInventory();
-  if (lastItem?.id === id) $('#sellNow').classList.add('hidden');
-}
-
-function spin() {
-  const c = countryOf(state.country);
-  const price = spinPrice(c);
-  if (spinning || state.balance < price) return;
-  spinning = true;
-  const item = makeItem(c, rollTier((state.pity || 0) >= PITY - 1 ? RARE_IDX : 0));
-  state.pity = TIERS.findIndex(t => t.id === item.tier) >= RARE_IDX ? 0 : (state.pity || 0) + 1;
-  lastItem = item;
-  state.balance -= price;
-  state.inv.push(item);
-  pendingIds.add(item.id);
-  save(); renderBalance(); renderSpinButton(); renderCountries();
-
+const spin = act(async () => {
+  const c = countryOf(S.country);
+  if (S.spinning || !S.profile || S.profile.balance < spinPrice(c)) return;
+  S.spinning = true;
+  renderSpinButton(); renderCountries();
   $('#stage').style.removeProperty('--c');
   $('#big').classList.remove('won');
   $('#outcome').innerHTML = '';
   $('#sellNow').classList.add('hidden');
-  $('#big').innerHTML = plateHTML(c.id, item.text, true);
+  $('#big').innerHTML = plateHTML(c.id, makePlate(c, 'common'), 'loop');
   fit($('#stage'));
 
+  let res;
+  try { res = await callFn('spin', { country: c.id }); }
+  catch (e) { S.spinning = false; renderStage(); renderCountries(); throw e; }
+
+  const item = { ...res.item, ts: Date.now() };
+  S.profile.balance = res.balance;
+  S.profile.pity = tierIdx(item.tier) >= RARE_IDX ? 0 : S.profile.pity + 1;
+  renderHeader();
+  $('#big').innerHTML = plateHTML(c.id, item.text, 'spin');
+  fit($('#stage'));
   const cols = [...document.querySelectorAll('#big .col')];
   void $('#big').offsetWidth;
   cols.forEach((col, i) => {
-    col.style.transition = `transform ${1.1 + i * 0.22}s cubic-bezier(.12,.7,.25,1.06)`;
+    col.style.transition = `transform ${0.9 + i * 0.2}s cubic-bezier(.12,.7,.25,1.06)`;
     col.style.transform = `translateX(-50%) translateY(-${col.dataset.len * 1.1}em)`;
   });
-  const last = cols[cols.length - 1];
-  if (last) last.addEventListener('transitionend', () => reveal(item), { once: true });
-  else reveal(item);
-}
+  const done = () => reveal(item);
+  if (cols.length) cols[cols.length - 1].addEventListener('transitionend', done, { once: true });
+  else done();
+});
 
 function reveal(item) {
-  spinning = false;
-  pendingIds.delete(item.id);
+  S.spinning = false;
+  S.lastItem = item;
+  S.plates.push(item);
   const t = tierOf(item.tier), c = countryOf(item.c);
   const reg = regionName(c, item.text);
   $('#stage').style.setProperty('--c', t.color);
@@ -704,51 +722,432 @@ function reveal(item) {
     <div class="tier">${t.name}</div>
     <div class="meta">${c.name}${reg ? ' · ' + reg : ''} · уже в гараже</div>
     <div class="val">${fmt(item.value)}</div>`;
-  const s = $('#sellNow');
-  s.textContent = `Продать за ${fmt(item.value)}`;
-  s.classList.remove('hidden');
-  renderSpinButton(); renderCountries(); renderInventory();
+  $('#sellNow').textContent = `Продать за ${fmt(item.value)}`;
+  $('#sellNow').classList.remove('hidden');
+  renderSpinButton(); renderCountries(); renderInventory(); renderPerks(); renderHeader();
+  if (tierIdx(item.tier) >= tierIdx('legendary')) toast(`${t.name} номер! ${item.text.replace('|', ' ')} — ${fmt(item.value)}`, t.color);
 }
 
+// ---------- гараж ----------
+function renderInventory() {
+  const list0 = S.plates;
+  $('#invCount').textContent = list0.length ? ` ${list0.length}` : '';
+  $('#invTotal').innerHTML = `${list0.length} шт. · <small>стоимость</small> ${fmt(worth())}`;
+  $('#sellCommon').disabled = !list0.some(i => i.tier === 'common' && !S.listed.has(i.id));
+
+  const f = $('#filter'), cur = f.value || 'all';
+  const present = COUNTRIES.filter(c => list0.some(i => i.c === c.id));
+  f.innerHTML = `<option value="all">Все страны</option>` + present.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  f.value = present.some(c => c.id === cur) ? cur : 'all';
+
+  const k = S.contract;
+  $('#contractBar').classList.toggle('hidden', !k);
+  $('#contractBtn').classList.toggle('primary', !!k);
+  if (k) {
+    const tier = k.size ? tierOf(S.plates.find(p => k.has(p.id))?.tier) : null;
+    const next = tier ? TIERS[tierIdx(tier.id) + 1] : null;
+    $('#contractText').textContent = tier
+      ? `Выбрано ${k.size}/10 · ${tier.name} → ${next.name}`
+      : 'Выбери 10 номеров одной редкости';
+    $('#contractGo').disabled = k.size !== 10;
+  }
+  const kTier = k?.size ? S.plates.find(p => k.has(p.id))?.tier : null;
+
+  const sort = $('#sort').value;
+  const list = list0.filter(i => f.value === 'all' || i.c === f.value).sort((a, b) =>
+    sort === 'new' ? b.ts - a.ts : sort === 'cheap' ? a.value - b.value : b.value - a.value);
+  $('#grid').innerHTML = list.length ? list.map(i => {
+    const t = tierOf(i.tier), c = countryOf(i.c);
+    const reg = regionName(c, i.text);
+    const price = S.listed.get(i.id);
+    let foot;
+    if (k) {
+      foot = `<span class="price">${fmt(i.value)}</span><span class="seller">${k.has(i.id) ? 'выбран' : ''}</span>`;
+    } else if (price) {
+      foot = `<span class="listed">На рынке за ${fmt(price)}</span><button class="btn" data-unlist="${i.id}">Снять</button>`;
+    } else if (S.listing === i.id) {
+      foot = `<form data-list="${i.id}"><input class="field" type="number" min="1" step="1" value="${i.value * 2}" required><button class="btn primary">Выставить</button><button class="btn" type="button" data-listcancel>×</button></form>`;
+    } else {
+      foot = `<span class="price">${fmt(i.value)}</span><span style="display:flex;gap:6px"><button class="btn" data-tomarket="${i.id}">На рынок</button><button class="btn" data-sell="${i.id}">Продать</button></span>`;
+    }
+    const blocked = k && (price || i.tier === 'mythic' || (kTier && i.tier !== kTier && !k.has(i.id)));
+    const cls = k ? (k.has(i.id) ? 'pick sel' : blocked ? 'dim' : 'pick') : '';
+    return `<div class="item ${cls}" style="--c:${t.color}" ${k && !blocked ? `data-pick="${i.id}"` : ''}>
+      ${plateBox(i, 24)}
+      <div class="info"><span class="tier">${t.name}</span><span class="region">${c.name}${reg ? ' · ' + reg : ''}</span></div>
+      <div class="foot">${foot}</div>
+    </div>`;
+  }).join('') : `<div class="empty">Гараж пуст. Покрути номера — они попадут сюда.</div>`;
+  fit($('#grid'));
+}
+
+const sell = act(async ids => {
+  const total = await rpc('sell_plates', { p_ids: ids });
+  const set = new Set(ids);
+  S.plates = S.plates.filter(p => !set.has(p.id));
+  S.profile.balance += total;
+  if (S.lastItem && set.has(S.lastItem.id)) $('#sellNow').classList.add('hidden');
+  if (total) toast(`Продано на ${fmt(total)}`, '#3ccf7a');
+  renderHeader(true); renderSpinButton(); renderInventory(); renderPerks();
+});
+
+const needMember = () => {
+  if (S.member) return true;
+  toast('Торговать можно после входа через Google или Telegram');
+  openAccount();
+  return false;
+};
+
+const signContract = act(async () => {
+  const ids = [...S.contract];
+  const res = await callFn('contract', { ids });
+  const set = new Set(ids);
+  S.plates = S.plates.filter(p => !set.has(p.id));
+  const item = { ...res.item, ts: Date.now() };
+  S.plates.push(item);
+  S.contract = null;
+  renderInventory(); renderPerks(); renderHeader();
+  const t = tierOf(item.tier);
+  openModal(`<h3>Контракт подписан</h3><p>Ты отдал 10 номеров и получил:</p>
+    <div class="big fit" data-size="64" style="min-height:160px;--c:${t.color}">${plateHTML(item.c, item.text)}</div>
+    <div class="outcome" style="text-align:center;--c:${t.color}"><div class="tier">${t.name}</div><div class="val">${fmt(item.value)}</div></div>`);
+});
+
+// ---------- рынок ----------
+async function loadMarket() {
+  const { data, error } = await sb.from('listings')
+    .select('price, created_at, seller, plate:plates!listings_plate_id_fkey(*), seller_profile:profiles!listings_seller_fkey(nick)')
+    .order('created_at', { ascending: false }).limit(300);
+  if (error) throw new Error(error.message);
+  S.market = data.filter(l => l.plate).map(l => ({ ...toItem(l.plate), price: l.price, seller: l.seller, nick: l.seller_profile?.nick || '—', listedAt: Date.parse(l.created_at) }));
+}
+function renderMarket() {
+  const f = $('#mFilter'), cur = f.value || 'all';
+  const present = COUNTRIES.filter(c => S.market.some(i => i.c === c.id));
+  f.innerHTML = `<option value="all">Все страны</option>` + present.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  f.value = present.some(c => c.id === cur) ? cur : 'all';
+  const sort = $('#mSort').value;
+  const list = S.market.filter(i => f.value === 'all' || i.c === f.value).sort((a, b) =>
+    sort === 'cheap' ? a.price - b.price : sort === 'value' ? b.value - a.value : b.listedAt - a.listedAt);
+  $('#marketTotal').innerHTML = `${S.market.length} ${plural(S.market.length, 'номер', 'номера', 'номеров')} на продаже · <small>комиссия ${MARKET_FEE * 100}% с продавца</small>`;
+  $('#mGrid').innerHTML = list.length ? list.map(i => {
+    const t = tierOf(i.tier), c = countryOf(i.c), mine = i.seller === S.uid;
+    return `<div class="item" style="--c:${t.color}">
+      ${plateBox(i, 24)}
+      <div class="info"><span class="tier">${t.name}</span><span class="region">${c.name} · номинал ${fmt(i.value)}</span></div>
+      <div class="seller">Продавец: ${mine ? 'ты' : `<button data-player="${i.seller}">${esc(i.nick)}</button>`}</div>
+      <div class="foot"><span class="price">${fmt(i.price)}</span>
+        ${mine ? `<button class="btn" data-unlist="${i.id}">Снять</button>` : `<button class="btn primary" data-buy="${i.id}" data-price="${i.price}">Купить</button>`}</div>
+    </div>`;
+  }).join('') : `<div class="empty">На рынке пока пусто. Выстави свой номер из гаража — кнопка «На рынок».</div>`;
+  fit($('#mGrid'));
+}
+
+// ---------- игроки и обмены ----------
+async function loadPlayers() {
+  S.board = await rpc('leaderboard');
+  const { data } = await sb.from('offers').select('*').eq('status', 'open').order('created_at', { ascending: false });
+  S.offers = data || [];
+  const plateIds = [...new Set(S.offers.flatMap(o => [...o.give_plates, ...o.want_plates]))];
+  const userIds = [...new Set(S.offers.flatMap(o => [o.from_id, o.to_id]))];
+  const [pl, pr] = await Promise.all([
+    plateIds.length ? sb.from('plates').select('*').in('id', plateIds) : { data: [] },
+    userIds.length ? sb.from('profiles').select('id, nick').in('id', userIds) : { data: [] },
+  ]);
+  S.offerPlates = new Map((pl.data || []).map(r => [r.id, toItem(r)]));
+  S.nicks = new Map((pr.data || []).map(r => [r.id, r.nick]));
+}
+function offerSide(title, ids, money, owner) {
+  const parts = ids.map(id => {
+    const p = S.offerPlates.get(id);
+    return p && p.owner === owner ? `<div class="pv fit" data-size="14">${plateHTML(p.c, p.text)}</div>` : `<div class="gone">номер уже недоступен</div>`;
+  });
+  if (money) parts.push(`<div class="money">${fmt(money)}</div>`);
+  return `<div class="oside"><h5>${title}</h5>${parts.join('') || '<small>ничего</small>'}</div>`;
+}
+function renderPlayers() {
+  $('#offers').innerHTML = S.offers.length ? S.offers.map(o => {
+    const incoming = o.to_id === S.uid;
+    const other = esc(S.nicks.get(incoming ? o.from_id : o.to_id) || '—');
+    return `<div class="offer">
+      <div class="who">${incoming ? `<b>${other}</b> предлагает тебе обмен` : `Ты предложил обмен игроку <b>${other}</b>`}</div>
+      <div class="sides">
+        ${offerSide(incoming ? 'Ты получишь' : 'Ты отдаёшь', o.give_plates, o.give_money, o.from_id)}
+        ${offerSide(incoming ? 'Ты отдашь' : 'Ты получишь', o.want_plates, o.want_money, o.to_id)}
+      </div>
+      <div class="row2" style="margin:0">${incoming
+        ? `<button class="btn primary" data-accept="${o.id}">Принять</button><button class="btn" data-decline="${o.id}">Отклонить</button>`
+        : `<button class="btn" data-cancel="${o.id}">Отменить</button>`}</div>
+    </div>`;
+  }).join('') : `<div class="empty">Обменов нет. Открой игрока в рейтинге ниже и предложи ему обмен.</div>`;
+  $('#board').innerHTML = S.board.length ? S.board.map((r, i) => `
+    <button class="${r.id === S.uid ? 'me' : ''}" data-player="${r.id}">
+      <span class="rank">${i + 1}</span><span class="n">${esc(r.nick)}${r.id === S.uid ? ' (ты)' : ''}</span>
+      <small>${r.plates} шт.</small><span class="w">${fmt(r.worth)}</span>
+    </button>`).join('') : `<div class="empty">Пока никого</div>`;
+  fit($('#offers'));
+  renderHeader();
+}
+
+const openPlayer = act(async id => {
+  if (id === S.uid) { switchTab('inv'); return; }
+  const [{ data: prof }, { data: rows }] = await Promise.all([
+    sb.from('profiles').select('id, nick').eq('id', id).single(),
+    sb.from('plates').select('*').eq('owner', id),
+  ]);
+  const plates = (rows || []).map(toItem).sort((a, b) => b.value - a.value);
+  const total = plates.reduce((s, p) => s + p.value, 0);
+  openModal(`<h3>${esc(prof.nick)}</h3><p>${plates.length} ${plural(plates.length, 'номер', 'номера', 'номеров')} · гараж стоит ${fmt(total)}</p>
+    <div class="row2"><button class="btn primary" id="tradeBtn">Предложить обмен</button></div>
+    <div class="grid">${plates.map(p => `<div class="item" style="--c:${tierOf(p.tier).color}">${plateBox(p, 20)}
+      <div class="info"><span class="tier">${tierOf(p.tier).name}</span><span class="region">${fmt(p.value)}</span></div></div>`).join('') || '<div class="empty">Пустой гараж</div>'}</div>`);
+  $('#tradeBtn').onclick = () => { if (needMember()) openTrade(prof, plates); };
+});
+
+function openTrade(prof, theirs) {
+  const mine = S.plates.filter(p => !S.listed.has(p.id)).sort((a, b) => b.value - a.value);
+  const give = new Set(), want = new Set();
+  const miniList = (list, set, side) => list.map(p => `
+    <button class="m ${set.has(p.id) ? 'sel' : ''}" style="--c:${tierOf(p.tier).color}" data-side="${side}" data-id="${p.id}">
+      <span class="pv fit" data-size="13">${plateHTML(p.c, p.text)}</span>
+      <span>${tierOf(p.tier).name}<small>${fmt(p.value)}</small></span>
+    </button>`).join('') || '<div class="empty" style="padding:20px">Нет номеров</div>';
+  const draw = () => {
+    $('#modalBody').innerHTML = `<h3>Обмен с ${esc(prof.nick)}</h3>
+      <p>Выбери, что отдаёшь и что хочешь получить. Можно добавить деньги с любой стороны. ${esc(prof.nick)} увидит предложение во вкладке «Игроки».</p>
+      <div class="cols">
+        <div><h4>Ты отдаёшь · ${give.size}</h4><div class="mini">${miniList(mine, give, 'give')}</div>
+          <input class="field" id="giveMoney" type="number" min="0" step="1" placeholder="+ деньги, ₴" style="width:100%;margin-top:8px"></div>
+        <div><h4>Ты получаешь · ${want.size}</h4><div class="mini">${miniList(theirs, want, 'want')}</div>
+          <input class="field" id="wantMoney" type="number" min="0" step="1" placeholder="+ деньги, ₴" style="width:100%;margin-top:8px"></div>
+      </div>
+      <div class="row2" style="margin-top:16px"><button class="btn primary" id="sendOffer">Отправить предложение</button></div>`;
+    fit($('#modalBody'));
+    $('#modalBody').querySelectorAll('.m').forEach(b => b.onclick = () => {
+      const set = b.dataset.side === 'give' ? give : want;
+      set.has(b.dataset.id) ? set.delete(b.dataset.id) : set.size < 10 && set.add(b.dataset.id);
+      const gm = $('#giveMoney').value, wm = $('#wantMoney').value;
+      draw();
+      $('#giveMoney').value = gm; $('#wantMoney').value = wm;
+    });
+    $('#sendOffer').onclick = act(async () => {
+      await rpc('create_offer', {
+        p_to: prof.id, p_give: [...give], p_want: [...want],
+        p_give_money: Math.max(0, Math.floor(+$('#giveMoney').value || 0)),
+        p_want_money: Math.max(0, Math.floor(+$('#wantMoney').value || 0)),
+      });
+      closeModal();
+      toast('Предложение отправлено', '#3ccf7a');
+      switchTab('players');
+    });
+  };
+  draw();
+}
+
+// ---------- коллекции ----------
+const isComplete = id => { const p = collectionProgress(id, S.plates); return p.have >= p.need; };
+function renderColls() {
+  $('#colls').innerHTML = COLLECTIONS.map(col => {
+    const p = collectionProgress(col.id, S.plates);
+    const got = S.claims.has(col.id), done = p.have >= p.need;
+    const prog = col.id === 'rich' ? `${fmt(p.have)} / ${fmt(p.need)}` : `${p.have} / ${p.need}`;
+    return `<div class="coll ${got ? 'done' : ''}">
+      <h4>${col.name}</h4><p>${col.desc}</p>
+      <div class="bar"><i style="width:${Math.round(p.have / p.need * 100)}%"></i></div>
+      <div class="foot"><b>${prog}</b>${got ? `<span class="got">Награда получена</span>`
+        : `<button class="btn ${done ? 'primary' : ''}" data-claim="${col.id}" ${done ? '' : 'disabled'}>+${fmt(col.reward)}</button>`}</div>
+    </div>`;
+  }).join('');
+  renderHeader();
+}
+
+// ---------- аккаунт ----------
+function openAccount() {
+  const tgReady = !!S.tgBot;
+  openModal(`<h3>${esc(S.profile.nick)}</h3>
+    <p>${S.member
+      ? `Ты вошёл${S.provider ? ' через ' + S.provider : ''}. Номера и баланс хранятся на сервере, можно торговать.`
+      : 'Ты играешь как гость: прогресс привязан к этому браузеру, торговать нельзя. Войди — гараж и баланс сохранятся, откроются рынок и обмены.'}</p>
+    <div class="row2"><input class="field" id="nickInput" maxlength="20" value="${esc(S.profile.nick)}"><button class="btn" id="nickSave">Сменить ник</button></div>
+    ${S.member ? `<div class="login"><button class="btn" id="logout">Выйти</button></div>` : `
+    <div class="login">
+      <button class="btn primary" id="googleBtn" ${S.google ? '' : 'disabled'}>Войти через Google</button>
+      <div id="tgBox" style="display:flex;justify-content:center">${tgReady ? '' : '<button class="btn" disabled style="width:100%">Войти через Telegram</button>'}</div>
+      ${S.google && tgReady ? '' : '<div class="note">Вход через Google и Telegram скоро заработает — пока можно играть гостем.</div>'}
+    </div>`}`);
+  $('#nickSave').onclick = act(async () => {
+    S.profile.nick = await rpc('set_nick', { p_nick: $('#nickInput').value });
+    renderHeader(); closeModal(); toast('Ник сохранён', '#3ccf7a');
+  });
+  if (S.member) {
+    $('#logout').onclick = act(async () => { await sb.auth.signOut(); location.reload(); });
+    return;
+  }
+  $('#googleBtn').onclick = act(async () => {
+    const { error } = await sb.auth.linkIdentity({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+    if (error) throw new Error(error.message);
+  });
+  if (tgReady) {
+    const s = document.createElement('script');
+    s.async = true; s.src = 'https://telegram.org/js/telegram-widget.js?22';
+    s.dataset.telegramLogin = S.tgBot; s.dataset.size = 'large'; s.dataset.radius = '10';
+    s.dataset.onauth = 'onTelegramAuth(user)'; s.dataset.requestAccess = 'write';
+    $('#tgBox').append(s);
+  }
+}
+window.onTelegramAuth = act(async user => {
+  const { token_hash } = await callFn('tg-auth', { tg: user });
+  const { error } = await sb.auth.verifyOtp({ token_hash, type: 'magiclink' });
+  if (error) throw new Error(error.message);
+  location.reload();
+});
+
+// ---------- модалка, вкладки ----------
+function openModal(html) { $('#modalBody').innerHTML = html; $('#modal').classList.remove('hidden'); fit($('#modalBody')); }
+function closeModal() { $('#modal').classList.add('hidden'); }
+$('#modalX').onclick = closeModal;
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+
+let tab = 'spin';
+const switchTab = act(async name => {
+  tab = name;
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  for (const t of ['spin', 'inv', 'market', 'players', 'colls']) $(`#tab-${t}`).classList.toggle('hidden', t !== name);
+  if (name === 'market') { $('#mGrid').innerHTML = '<div class="loading">Загружаю рынок…</div>'; await loadMarket(); renderMarket(); }
+  if (name === 'players') { $('#board').innerHTML = '<div class="loading">Загружаю…</div>'; await loadPlayers(); renderPlayers(); }
+  if (name === 'colls') renderColls();
+  if (name === 'inv') renderInventory();
+  fit();
+});
+
 // ---------- события ----------
-document.addEventListener('click', e => {
-  const s = e.target.closest('[data-sell]');
-  if (s) sell(s.dataset.sell);
-  const cb = e.target.closest('[data-country]');
-  if (cb && !spinning) {
-    state.country = cb.dataset.country; save();
+document.addEventListener('click', act(async e => {
+  const t = e.target.closest('button, [data-pick]');
+  if (!t) return;
+  const d = t.dataset;
+  if (d.tab) return switchTab(d.tab);
+  if (d.country && !S.spinning) {
+    S.country = d.country; localStorage.setItem('nomernoy-country', S.country);
     renderCountries(); renderStage(); renderLegend();
   }
-  const tab = e.target.closest('[data-tab]');
-  if (tab) {
-    document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b === tab));
-    $('#tab-spin').classList.toggle('hidden', tab.dataset.tab !== 'spin');
-    $('#tab-inv').classList.toggle('hidden', tab.dataset.tab !== 'inv');
-    fit();
+  if (d.pick) {
+    const k = S.contract;
+    k.has(d.pick) ? k.delete(d.pick) : k.size < 10 && k.add(d.pick);
+    renderInventory();
   }
-});
+  if (d.sell) await sell([d.sell]);
+  if (d.tomarket && needMember()) { S.listing = d.tomarket; renderInventory(); $('#grid form input')?.focus(); }
+  if ('listcancel' in d) { S.listing = null; renderInventory(); }
+  if (d.unlist) {
+    await rpc('unlist_plate', { p_plate: d.unlist });
+    S.listed.delete(d.unlist);
+    S.market = S.market.filter(i => i.id !== d.unlist);
+    renderInventory(); if (tab === 'market') renderMarket();
+    toast('Снято с продажи');
+  }
+  if (d.buy && needMember()) {
+    await rpc('buy_listing', { p_plate: d.buy });
+    toast(`Куплено за ${fmt(+d.price)} — номер в гараже`, '#3ccf7a');
+    await loadMe(); await loadMarket();
+    renderMarket(); renderHeader(true); renderInventory(); renderPerks(); renderSpinButton();
+  }
+  if (d.player) { closeModal(); await openPlayer(d.player); }
+  if (d.accept || d.decline) {
+    const r = await rpc('respond_offer', { p_offer: d.accept || d.decline, p_accept: !!d.accept });
+    toast(r === 'accepted' ? 'Обмен состоялся' : r === 'declined' ? 'Предложение отклонено' : 'Обмен не состоялся: номера или деньги уже недоступны',
+      r === 'accepted' ? '#3ccf7a' : undefined);
+    await loadMe(); await loadPlayers();
+    renderPlayers(); renderHeader(true); renderInventory(); renderPerks(); renderSpinButton();
+  }
+  if (d.cancel) { await rpc('cancel_offer', { p_offer: d.cancel }); await loadPlayers(); renderPlayers(); }
+  if (d.claim) {
+    const amt = await rpc('claim_collection', { p_id: d.claim });
+    S.claims.add(d.claim); S.profile.balance += amt;
+    toast(`Коллекция собрана: +${fmt(amt)}`, '#3ccf7a');
+    renderColls(); renderHeader(true); renderSpinButton();
+  }
+}));
+document.addEventListener('submit', act(async e => {
+  const form = e.target.closest('[data-list]');
+  if (!form) return;
+  e.preventDefault();
+  const price = Math.floor(+form.querySelector('input').value);
+  await rpc('list_plate', { p_plate: form.dataset.list, p_price: price });
+  S.listed.set(form.dataset.list, price); S.listing = null;
+  renderInventory();
+  toast(`Выставлено на рынок за ${fmt(price)}`, '#3ccf7a');
+}));
 document.addEventListener('keydown', e => {
-  if (e.code === 'Space' && !$('#tab-spin').classList.contains('hidden') && e.target.tagName !== 'SELECT') {
+  if (e.code === 'Space' && tab === 'spin' && $('#modal').classList.contains('hidden') && !['INPUT', 'SELECT'].includes(e.target.tagName)) {
     e.preventDefault(); spin();
   }
 });
 $('#spinBtn').onclick = spin;
-$('#sellNow').onclick = () => lastItem && sell(lastItem.id);
+$('#sellNow').onclick = () => S.lastItem && sell([S.lastItem.id]);
 $('#sort').onchange = renderInventory;
 $('#filter').onchange = renderInventory;
-$('#sellCommon').onclick = () => {
-  const commons = state.inv.filter(i => i.tier === 'common' && !pendingIds.has(i.id));
-  state.balance += commons.reduce((s, i) => s + i.value, 0);
-  state.inv = state.inv.filter(i => !commons.includes(i));
-  if (commons.includes(lastItem)) $('#sellNow').classList.add('hidden');
-  save(); renderBalance(true); renderSpinButton(); renderInventory();
-};
+$('#mSort').onchange = renderMarket;
+$('#mFilter').onchange = renderMarket;
+$('#sellCommon').onclick = () => sell(S.plates.filter(p => p.tier === 'common' && !S.listed.has(p.id)).map(p => p.id));
+$('#contractBtn').onclick = () => { S.contract = S.contract ? null : new Set(); S.listing = null; renderInventory(); };
+$('#contractCancel').onclick = () => { S.contract = null; renderInventory(); };
+$('#contractGo').onclick = signContract;
+$('#accBtn').onclick = () => S.profile && openAccount();
+$('#dailyBtn').onclick = act(async () => {
+  const r = await rpc('claim_daily');
+  S.profile.balance += r.amount; S.profile.daily_streak = r.streak; S.profile.daily_last = kyivDate(new Date());
+  toast(`Бонус дня ${r.streak}: +${fmt(r.amount)}`, '#ffd500');
+  renderHeader(true); renderPerks(); renderSpinButton();
+});
+$('#rentBtn').onclick = act(async () => {
+  const amt = await rpc('claim_rent');
+  await loadMe();
+  toast(`Аренда: +${fmt(amt)}`, '#3ccf7a');
+  renderHeader(true); renderPerks(); renderSpinButton();
+});
 
+// ---------- старт ----------
 $('#logo').innerHTML = `${plateHTML('ua', 'KA 0001 KA')}<span class="word">НОМЕРНОЙ</span>`;
-renderBalance(); renderCountries(); renderStage(); renderLegend(); renderInventory();
+renderCountries(); renderStage(); renderLegend();
+
+async function boot() {
+  // ошибка после возврата с Google (например, этот Google уже привязан к другому игроку)
+  const params = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
+  const oauthErr = params.get('error_description');
+  if (oauthErr) history.replaceState(null, '', location.pathname);
+
+  let { data: { session } } = await sb.auth.getSession();
+  if (!session) {
+    const { data, error } = await sb.auth.signInAnonymously();
+    if (error) throw new Error('Не получилось войти: ' + error.message);
+    session = data.session;
+  }
+  const u = session.user;
+  S.uid = u.id;
+  S.member = !u.is_anonymous;
+  S.provider = (u.app_metadata?.providers || []).includes('google') ? 'Google' : u.user_metadata?.provider === 'telegram' ? 'Telegram' : '';
+  fetch(`${SUPABASE_URL}/auth/v1/settings`, { headers: { apikey: SUPABASE_KEY } })
+    .then(r => r.json()).then(s => { S.google = !!s.external?.google; }).catch(() => {});
+  callFn('tg-auth', { config: true }).then(r => { S.tgBot = r.bot; }).catch(() => {});
+  await loadMe();
+  renderHeader(); renderPerks(); renderSpinButton(); renderInventory();
+  if (oauthErr) {
+    if (/already/i.test(oauthErr)) {
+      openModal(`<h3>Этот Google уже в игре</h3><p>К этому Google-аккаунту привязан другой игрок. Войти в него? Номера текущего гостя останутся в этом браузере недоступными.</p>
+        <div class="row2"><button class="btn primary" id="googleSwitch">Войти в тот аккаунт</button></div>`);
+      $('#googleSwitch').onclick = () => sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+    } else toast(oauthErr, '#ff3d3d');
+  }
+}
+act(boot)();
 document.fonts.ready.then(() => fit());
+addEventListener('resize', () => { if (!S.spinning) fit(); });
 $('.country.on')?.scrollIntoView({ inline: 'center', block: 'nearest' });
-addEventListener('resize', () => { if (!spinning) fit(); });
+setInterval(renderPerks, 30000);
+document.addEventListener('visibilitychange', act(async () => {
+  if (document.visibilityState !== 'visible' || !S.uid || S.spinning) return;
+  await loadMe(); renderHeader(); renderPerks(); renderSpinButton(); renderInventory();
+}));
 </script>
 </body>
 </html>
